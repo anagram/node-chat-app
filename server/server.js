@@ -29,7 +29,9 @@ io.on('connection', (socket) => {
   // listener
   socket.on('createMessage', (newMessage) => {
     console.log('createMessage', newMessage);
-    socket.emit('newMessage', newMessage);
+    var stampedMessage = newMessage;
+    stampedMessage.createdAt = 345;
+    socket.emit('newMessage', stampedMessage);
   });
   // register event
   socket.on('disconnect', () => {
