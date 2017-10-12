@@ -1,12 +1,12 @@
-
+// client
   var socket = io();
 
   socket.on('connect', function () {
     console.log('yay! connected to server');
 
-    socket.emit('createEmail', {
-      to: 'jen@ex.com',
-      text: 'hey guys this is a new email'
+    socket.emit('createMessage', {
+      from: 'bilbo',
+      text: 'client script emitted where is my ring?!'
     });
   });
 
@@ -14,8 +14,8 @@
     console.log('Disconnected from server');
   });
 
-  socket.on('newEmail', function (email) {
-    console.log('New email', email);
+  socket.on('newMessage', function (message) {
+    console.log('newMessage', message);
   });
 
 
