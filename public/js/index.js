@@ -4,10 +4,10 @@
   socket.on('connect', function () {
     console.log('yay! connected to server');
 
-    socket.emit('createMessage', {
-      from: 'bilbo',
-      text: 'client script emitted where is my ring?!'
-    });
+    // socket.emit('createMessage', {
+    //   from: 'bilbo',
+    //   text: 'client script emitted where is my ring?!'
+    // });
   });
 
   socket.on('disconnect', function () {

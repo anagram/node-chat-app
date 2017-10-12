@@ -20,19 +20,24 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  socket.emit('newMessage', {
-    from:  'gollum',
-    text: 'server startup emit : what is cheese, precious?',
-    createdAt: 123
-  });
+  // socket.emit('newMessage', {
+  //   from:  'gollum',
+  //   text: 'server startup emit : what is cheese, precious?',
+  //   createdAt: new Date().getTime()
+  // });
 
   // listener
   socket.on('createMessage', (newMessage) => {
     console.log('createMessage', newMessage);
-    var stampedMessage = newMessage;
-    stampedMessage.createdAt = 345;
-    socket.emit('newMessage', stampedMessage);
+
+    // emit to every single connection
+    io.emit('newMessage', {
+      from: newMessage.from,
+      text: newMessage.text,
+      createdAt: new Date().getTime()
+    });
   });
+  
   // register event
   socket.on('disconnect', () => {
     console.log('user disconnected, sniff');
