@@ -3,7 +3,7 @@ const http = require('http')
 const express = require('express');
 const socketIO = require('socket.io')
 
-
+const {generateMessage} = require('./utils/message');
 // use path.join
 const publicPath = path.join(__dirname, '../public');
 // for heroku:
@@ -21,17 +21,9 @@ io.on('connection', (socket) => {
   console.log('New user connected');
 
   // socket.emit from admin - welcome to chat
-  socket.emit('newMessage', {
-    from:  'admin',
-    text: 'Welcom to chat app',
-    createdAt: new Date().getTime()
-  });
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to chat app'));
   // socket.broadcast - new user joined from admin
-  socket.broadcast.emit('newMessage', {
-    from: 'admin',
-    text: 'new user joined',
-    createdAt: new Date().getTime()
-  });
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
 
   // listener
@@ -39,11 +31,7 @@ io.on('connection', (socket) => {
     console.log('createMessage', newMessage);
 
     // emit to every single connection
-    io.emit('newMessage', {
-      from: newMessage.from,
-      text: newMessage.text,
-      createdAt: new Date().getTime()
-    });
+    io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
 
     // send to everyone but me
     // socket.broadcast.emit('newMessage', {
