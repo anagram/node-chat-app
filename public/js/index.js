@@ -18,6 +18,15 @@
     console.log('newMessage', message);
   });
 
+  // add emitter for acknowlage example.
+  // includes a callback function that will execute when message is received
+
+  socket.emit('createMessage', {
+    from: 'Frank',
+    text: 'Hi'
+  }, function (data) {
+    console.log('got it: ', data);
+  });
 
 // this is ES6 arrow function, only works in Chrome!
 // socket.on('connect', () => {
