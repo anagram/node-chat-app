@@ -25,7 +25,6 @@ io.on('connection', (socket) => {
   // socket.broadcast - new user joined from admin
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
-
   // listener
   socket.on('createMessage', (message, callback) => {
     console.log('createMessage', message);
